@@ -24,39 +24,33 @@ function TeeTimeForm({ teeObj }) {
     checkUser(user.uid).then(setUser);
   }, [user]);
 
-  console.log('User:', user);
+  useEffect(() => {
+    setFormInput(teeObj);
+  }, [teeObj]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormInput((prevState) => (
-      { ...prevState, [name]: value }
-    ));
+    setFormInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      // const userData = await checkUser(user.uid);
-
-      if (teeObj.id) {
-        setFormInput((prevState) => ({ ...prevState, userId: user[0].id }));
-        await updateTeeTime(formInput);
-      } else {
-        const payload = { ...formInput, userId: user[0].id };
-        console.log('Payload:', payload);
-        await createTeeTime(payload);
-      }
-
-      router.push('/');
-    } catch (error) {
-      console.error('Error fetching user data:', error);
+    if (teeObj?.id) {
+      console.log('teeObjId:', teeObj.id);
+      updateTeeTime(formInput).then(() => router.push('/'));
+    } else {
+      const payload = { ...formInput, userId: user[0].id };
+      createTeeTime(payload).then(() => router.push('/'));
     }
   };
 
   return (
     <>
-      <h3 className="formTitle">{teeObj.id ? 'Update' : 'Create'} Tee Time</h3>
+      <h3 className="formTitle">{teeObj?.id ? 'Update' : 'Create'} Tee Time</h3>
       <div>
         <Form className="forms" onSubmit={handleSubmit}>
           <Form.Group className="mb-3">

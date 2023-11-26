@@ -37,7 +37,7 @@ function Home() {
   console.log('TeeTimes:', teeTimes);
   return (
     <>
-      {currentUser.uid !== user.uid ? (<RegisterForm onUpdate={onUpdate} />) : (
+      {currentUser?.uid !== user.uid ? (<RegisterForm onUpdate={onUpdate} />) : (
         <>
           <Card className="prof" style={{ width: '25rem' }}>
             <Card.Body className="d-flex flex-column align-items-center">
@@ -80,7 +80,7 @@ function Home() {
           </Card>
           <div>
             {teeTimes.length ? teeTimes.map((teeTime) => (
-              <UserTeeCard key={teeTimes.id} teeObj={teeTime} onUpdate={userTeeTimes} />)) : ('')}
+              <UserTeeCard key={teeTime.id} teeObj={teeTime} onUpdate={userTeeTimes} />)) : ('')}
           </div>
         </>
       )}

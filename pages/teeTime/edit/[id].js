@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getSingleTeeTime } from '../../../api/teeTimeData';
 import TeeTimeForm from '../../../components/forms/TeeTimeForm';
 
@@ -12,5 +12,9 @@ export default function EditTeeTime() {
     getSingleTeeTime(id).then(setEditTee);
   }, [id]);
 
-  return (<TeeTimeForm teeObj={editTee} />);
+  console.log('editTee:', editTee);
+
+  return (
+    <TeeTimeForm teeObj={editTee} />
+  );
 }
