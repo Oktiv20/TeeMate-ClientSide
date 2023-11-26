@@ -1,16 +1,26 @@
 import { Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { deleteTeeTime, getAllTeeTimes } from '../../api/teeTimeData';
+import { useRouter } from 'next/router';
+import { deleteTeeTime } from '../../api/teeTimeData';
 
 function UserTeeCard({ teeObj, onUpdate }) {
+  const router = useRouter();
   const deleteThisTeeTime = () => {
-    if (window.confirm(`Delete ${teeObj.name}?`)) {
-      deleteTeeTime(teeObj.id).then(onUpdate);
+    if (window.confirm(`Delete This Booking On ${teeObj.date}?`)) {
+      deleteTeeTime(teeObj?.id).then(() => {
+        onUpdate();
+      });
     }
   };
 
-  console.log('TeeObj:', teeObj);
+  const handleDetailsClick = () => {
+    router.push(`/teeTime/${teeObj.id}`);
+  };
+
+  const handleEditClick = () => {
+    router.push(`/teeTime/edit/${teeObj.id}`);
+  };
 
   return (
     <div>
@@ -27,13 +37,13 @@ function UserTeeCard({ teeObj, onUpdate }) {
           </Card.Subtitle>
         </Card.Body>
         <div className="cardBtns">
-          <Button className="tee tee-details-btn" href={`/teeTime/${teeObj.id}`} passHref>
+          <Button className="tee tee-details-btn" onClick={handleDetailsClick}>
             Details
           </Button>
-          <Button className="tee tee-details-btn" href={`/teeTime/edit/${teeObj.id}`} passHref>
+          <Button className="tee edit-tee-btn" onClick={handleEditClick}>
             Edit
           </Button>
-          <Button className="tee tee-details-btn" onClick={deleteThisTeeTime} onUpdate={getAllTeeTimes}>Delete</Button>
+          <Button className="tee tee-details-btn" onClick={deleteThisTeeTime}>Delete</Button>
         </div>
       </Card>
     </div>

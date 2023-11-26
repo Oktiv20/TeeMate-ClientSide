@@ -27,7 +27,7 @@ export default function NavBar() {
               <Nav.Link>Tee Times</Nav.Link>
             </Link>
             <Link passHref href="/teeTime/new">
-              <Nav.Link>Create Tee TIme</Nav.Link>
+              <Nav.Link>Create Tee Time</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>
               Sign Out

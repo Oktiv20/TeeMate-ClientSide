@@ -14,7 +14,7 @@ export default function ViewSingleTeeTime() {
   const [buttonText, setButtonText] = useState('');
 
   const teeTimes = async () => {
-    const teeTimesArray = await getSingleTeeTime(id); // Assuming 'id' is the tee time ID from the router or somewhere
+    const teeTimesArray = await getSingleTeeTime(id);
     setTeeTimeDetails(teeTimesArray);
   };
 
