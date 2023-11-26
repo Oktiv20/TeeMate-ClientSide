@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../utils/context/authContext';
-import { getUserById } from '../../api/userData';
+import { getSingleUser } from '../../api/userData';
 import RegisterForm from '../../components/forms/RegisterForm';
 
 export default function UpdateUser() {
@@ -8,7 +9,7 @@ export default function UpdateUser() {
   const [userObj, setUserObj] = useState({});
 
   useEffect(() => {
-    getUserById(user.uid).then(setUserObj);
+    getSingleUser(user.id).then(setUserObj);
   }, []);
 
   return (

@@ -1,31 +1,23 @@
 import { Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { getAllUsers } from '../../api/userData';
-import { useAuth } from '../../utils/context/authContext';
+import React from 'react';
+import { deleteTeeTime, getAllTeeTimes } from '../../api/teeTimeData';
 
-function TeeTimeCard({ teeObj }) {
-  const [bookedByUser, setBookedByUser] = useState(null);
-  const { user } = useAuth();
+function UserTeeCard({ teeObj, onUpdate }) {
+  const deleteThisTeeTime = () => {
+    if (window.confirm(`Delete ${teeObj.name}?`)) {
+      deleteTeeTime(teeObj.id).then(onUpdate);
+    }
+  };
 
-  useEffect(() => {
-    getAllUsers(user.id)
-      .then((users) => {
-        const foundUser = users.find((u) => u.id === teeObj.userId);
-        setBookedByUser(foundUser);
-        console.log('Tee card User:', user.id);
-      })
-      .catch((error) => {
-        console.error('Error fetching users:', error);
-      });
-  }, [teeObj.userId, user]);
+  console.log('TeeObj:', teeObj);
 
   return (
     <div>
       <Card className="teeTimeCard" style={{ width: '20rem' }}>
         <Card.Body>
           <Card.Title className="cardTitle">
-            Booked By: {`${bookedByUser?.firstName} ${bookedByUser?.lastName}`}
+            {/* Booked By: {`${bookedByUser?.firstName} ${bookedByUser?.lastName}`} */}
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">Date: {teeObj.date}</Card.Subtitle>
           <Card.Subtitle className="mb-2 text-muted">Time: {teeObj.time}</Card.Subtitle>
@@ -38,13 +30,17 @@ function TeeTimeCard({ teeObj }) {
           <Button className="tee tee-details-btn" href={`/teeTime/${teeObj.id}`} passHref>
             Details
           </Button>
+          <Button className="tee tee-details-btn" href={`/teeTime/edit/${teeObj.id}`} passHref>
+            Edit
+          </Button>
+          <Button className="tee tee-details-btn" onClick={deleteThisTeeTime} onUpdate={getAllTeeTimes}>Delete</Button>
         </div>
       </Card>
     </div>
   );
 }
 
-TeeTimeCard.propTypes = {
+UserTeeCard.propTypes = {
   teeObj: PropTypes.shape({
     date: PropTypes.string,
     image: PropTypes.string,
@@ -56,4 +52,4 @@ TeeTimeCard.propTypes = {
   onUpdate: PropTypes.func.isRequired,
 }.isRequired;
 
-export default TeeTimeCard;
+export default UserTeeCard;
