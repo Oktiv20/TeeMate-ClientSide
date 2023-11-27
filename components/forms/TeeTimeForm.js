@@ -5,6 +5,7 @@ import { Button, Form } from 'react-bootstrap';
 import { createTeeTime, updateTeeTime } from '../../api/teeTimeData';
 import { useAuth } from '../../utils/context/authContext';
 import { checkUser } from '../../utils/auth';
+import { getAllCourses } from '../../api/courseData';
 
 const initialState = {
   date: '',
@@ -17,6 +18,7 @@ const initialState = {
 function TeeTimeForm({ teeObj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [, setUser] = useState({});
+  const [courses, setCourses] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
 
@@ -27,6 +29,10 @@ function TeeTimeForm({ teeObj }) {
   useEffect(() => {
     setFormInput(teeObj);
   }, [teeObj]);
+
+  useEffect(() => {
+    getAllCourses().then(setCourses);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,10 +77,6 @@ function TeeTimeForm({ teeObj }) {
               onChange={handleChange}
             />
           </Form.Group>
-          {/* <Form.Group className="mb-3">
-            <Form.Label>Time</Form.Label>
-            <Form.Control type="text" name="time" value={formInput.time} onChange={handleChange} required />
-          </Form.Group> */}
           <Form.Group className="mb-3">
             <Form.Label>Location</Form.Label>
             <Form.Control type="text" name="location" value={formInput.location} onChange={handleChange} required />
@@ -84,27 +86,27 @@ function TeeTimeForm({ teeObj }) {
             <Form.Control type="text" name="numOfPlayers" value={formInput.numOfPlayers} onChange={handleChange} required />
           </Form.Group>
           <Form.Group>
-            {/* <Form.Label>Category</Form.Label>
+            <Form.Label>Course</Form.Label>
             <Form.Select
-              aria-label="Category"
-              name="categoryId"
+              aria-label="Course"
+              name="courseId"
               onChange={handleChange}
               className="mb-3"
-              value={formInput.categoryId}
+              value={formInput.courseId}
               required
             >
-              <option value="">Select a Category</option>
+              <option value="">Select a Course</option>
               {
-            categories.map((category) => (
+            courses.map((course) => (
               <option
-                key={category.id}
-                value={category.id}
+                key={course.id}
+                value={course.id}
               >
-                {category.type}
+                {course.name}
               </option>
             ))
           }
-            </Form.Select> */}
+            </Form.Select>
           </Form.Group>
           <Button variant="primary" type="submit">
             {teeObj.id ? 'Update' : 'Create'} Tee Time

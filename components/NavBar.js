@@ -24,10 +24,13 @@ export default function NavBar() {
               <Nav.Link>Home</Nav.Link>
             </Link>
             <Link passHref href="/teeTimes">
-              <Nav.Link>Tee Times</Nav.Link>
+              <Nav.Link>All Tee Times</Nav.Link>
             </Link>
             <Link passHref href="/teeTime/new">
               <Nav.Link>Create Tee Time</Nav.Link>
+            </Link>
+            <Link passHref href="/courses">
+              <Nav.Link>Courses</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>
               Sign Out
