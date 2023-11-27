@@ -40,7 +40,7 @@ function Home() {
       {currentUser?.uid !== user.uid ? (<RegisterForm onUpdate={onUpdate} />) : (
         <>
           <Card className="prof" style={{ width: '25rem' }}>
-            <Card.Body className="d-flex flex-column align-items-center">
+            <Card.Body className="d-flex flex-column justify-content-center align-items-center">
               <div>
                 <img
                   src={currentUser.profilePic}

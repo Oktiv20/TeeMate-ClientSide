@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { getSingleTeeTime } from '../../api/teeTimeData';
 import { useAuth } from '../../utils/context/authContext';
 import { addUserToTeeTime, deleteUserFromTeeTime, getSingleUser } from '../../api/userData';
+import { getSingleCourse } from '../../api/courseData';
 
 export default function ViewSingleTeeTime() {
   const router = useRouter();
@@ -12,6 +13,7 @@ export default function ViewSingleTeeTime() {
   const { user } = useAuth();
   const { id } = router.query;
   const [buttonText, setButtonText] = useState('');
+  const [courseName, setCourseName] = useState([]);
 
   const teeTimes = async () => {
     const teeTimesArray = await getSingleTeeTime(id);
@@ -59,14 +61,21 @@ export default function ViewSingleTeeTime() {
     }
   }, [teeTimeDetails.users, buttonText, user]);
 
+  useEffect(() => {
+    getSingleCourse(teeTimeDetails.courseId).then(setCourseName);
+  }, [teeTimeDetails.courseId]);
+
   return (
     <div className="singleTee">
       <Card className="teeTimeCard" style={{ width: '20rem' }}>
         <Card.Body>
-          <Card.Subtitle className="mb-2 text-muted">Date: {teeTimeDetails.date}</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">Time: {teeTimeDetails.time}</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">Location: {teeTimeDetails.location}</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">Number of Players: {teeTimeDetails.numOfPlayers}</Card.Subtitle>
+          <Card.Title className="mb-2">Course: {courseName.name} </Card.Title>
+          <Card.Img src={courseName.image} />
+          <hr />
+          <Card.Subtitle className="mb-2">Date: {teeTimeDetails.date}</Card.Subtitle>
+          <Card.Subtitle className="mb-2">Time: {teeTimeDetails.time}</Card.Subtitle>
+          <Card.Subtitle className="mb-2">Location: {teeTimeDetails.location}</Card.Subtitle>
+          <Card.Subtitle className="mb-2">Number of Players: {teeTimeDetails.numOfPlayers}</Card.Subtitle>
         </Card.Body>
         <div>
           <Button type="button" onClick={handleButtonClick}>{buttonText}</Button>

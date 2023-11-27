@@ -1,11 +1,14 @@
 import { Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { deleteTeeTime } from '../../api/teeTimeData';
+import { getSingleCourse } from '../../api/courseData';
 
 function UserTeeCard({ teeObj, onUpdate }) {
   const router = useRouter();
+  const [courseName, setCourseName] = useState([]);
+
   const deleteThisTeeTime = () => {
     if (window.confirm(`Delete This Booking On ${teeObj.date}?`)) {
       deleteTeeTime(teeObj?.id).then(() => {
@@ -13,6 +16,10 @@ function UserTeeCard({ teeObj, onUpdate }) {
       });
     }
   };
+
+  useEffect(() => {
+    getSingleCourse(teeObj.courseId).then(setCourseName);
+  }, [teeObj.courseId]);
 
   const handleDetailsClick = () => {
     router.push(`/teeTime/${teeObj.id}`);
@@ -23,16 +30,14 @@ function UserTeeCard({ teeObj, onUpdate }) {
   };
 
   return (
-    <div>
-      <Card className="teeTimeCard" style={{ width: '20rem' }}>
+    <div className="align-content-center">
+      <Card className="teeTimeCard" style={{ width: '25rem' }}>
         <Card.Body>
-          <Card.Title className="cardTitle">
-            {/* Booked By: {`${bookedByUser?.firstName} ${bookedByUser?.lastName}`} */}
-          </Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">Date: {teeObj.date}</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">Time: {teeObj.time}</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">Location: {teeObj.location}</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">
+          <Card.Title className="mb-2">Course: {courseName.name} </Card.Title>
+          <Card.Subtitle className="mb-2">Date: {teeObj.date}</Card.Subtitle>
+          <Card.Subtitle className="mb-2">Time: {teeObj.time}</Card.Subtitle>
+          <Card.Subtitle className="mb-2">Location: {teeObj.location}</Card.Subtitle>
+          <Card.Subtitle className="mb-2">
             Number of Players: {teeObj.numOfPlayers}
           </Card.Subtitle>
         </Card.Body>
@@ -58,6 +63,9 @@ UserTeeCard.propTypes = {
     numOfPlayers: PropTypes.string,
     id: PropTypes.number,
     userId: PropTypes.number,
+  }),
+  courseObj: PropTypes.shape({
+    name: PropTypes.string,
   }),
   onUpdate: PropTypes.func.isRequired,
 }.isRequired;
