@@ -91,7 +91,7 @@ const getUserTeeTimes = (userId) => new Promise((resolve, reject) => {
 });
 
 const addUserToTeeTime = (teeTimeId, userId) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/api/teeTimeUsers/${teeTimeId}/${userId}`, {
+  fetch(`${endpoint}/api/teeTimeUser/${teeTimeId}/${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -101,8 +101,39 @@ const addUserToTeeTime = (teeTimeId, userId) => new Promise((resolve, reject) =>
     .catch(reject);
 });
 
+// Create Tee Time and add user to it
+const createTeeTimeAndAddUser = (payload, userId) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/teeTimes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to create tee time');
+      }
+      return response.json();
+    })
+    .then((teeTime) => {
+      addUserToTeeTime(teeTime.id, userId)
+        .then(() => {
+          resolve(teeTime);
+        })
+        .catch((error) => {
+          console.error('Error adding user to tee time:', error);
+          reject(error);
+        });
+    })
+    .catch((error) => {
+      console.error('Error creating tee time:', error);
+      reject(error);
+    });
+});
+
 const deleteUserFromTeeTime = (teeTimeId, userId) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/api/teeTimeUsers/${teeTimeId}/${userId}`, {
+  fetch(`${endpoint}/api/teeTimeUser/${teeTimeId}/${userId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -113,5 +144,5 @@ const deleteUserFromTeeTime = (teeTimeId, userId) => new Promise((resolve, rejec
 });
 
 export {
-  getAllUsers, createUser, updateUser, getSingleUser, getUserTeeTimes, addUserToTeeTime, deleteUserFromTeeTime,
+  getAllUsers, createUser, updateUser, getSingleUser, getUserTeeTimes, addUserToTeeTime, createTeeTimeAndAddUser, deleteUserFromTeeTime,
 };

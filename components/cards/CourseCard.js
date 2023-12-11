@@ -7,7 +7,7 @@ function CourseCard({ courseObj }) {
       <Card
         className="teeTimeCard"
         style={{
-          width: '20rem', height: '25rem', marginBottom: '30px', marginRight: '100px',
+          width: '18rem', height: '25rem', marginBottom: '30px', marginRight: '35px',
         }}
       >
         <Card.Img variant="top" src={courseObj.image} style={{ height: '15rem' }} />

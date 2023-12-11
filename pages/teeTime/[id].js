@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useRouter } from 'next/router';
@@ -9,30 +10,44 @@ import { getSingleCourse } from '../../api/courseData';
 export default function ViewSingleTeeTime() {
   const router = useRouter();
   const [teeTimeDetails, setTeeTimeDetails] = useState({});
-  const [usersTeeTime, setUsersTeeTime] = useState({});
+  const [, setUsersTeeTime] = useState({});
   const { user } = useAuth();
   const { id } = router.query;
   const [buttonText, setButtonText] = useState('');
   const [courseName, setCourseName] = useState([]);
 
-  const teeTimes = async () => {
-    const teeTimesArray = await getSingleTeeTime(id);
-    setTeeTimeDetails(teeTimesArray);
+  const teeTimes = () => {
+    getSingleTeeTime(id)
+      .then((teeTimesArray) => {
+        setTeeTimeDetails(teeTimesArray);
+      })
+      .catch((error) => {
+        console.error('Error fetching tee time:', error);
+      });
   };
 
   const buttonCheck = () => {
-    const isCurrentUserBooking = teeTimeDetails.users?.some((obj) => obj.id === usersTeeTime.id);
+    const isCurrentUserBooking = teeTimeDetails.users?.some((obj) => obj.id === user[0].id);
+    const teeTimeCreator = teeTimeDetails.userId === user[0].id;
 
-    if (isCurrentUserBooking) {
+    if (isCurrentUserBooking || teeTimeCreator) {
+      const lastUserJoined = teeTimeDetails.users?.[teeTimeDetails.users.length - 1]?.id === user[0].id;
+
+      if (lastUserJoined) {
+        if (teeTimeDetails.numOfPlayers === 0) {
+          setButtonText('Leave Tee Time');
+          return;
+        }
+      }
       setButtonText('Leave Tee Time');
     } else {
-      setButtonText('Join Tee Time');
+      setButtonText(teeTimeDetails.numOfPlayers > 0 ? 'Join Tee Time' : '');
     }
   };
 
   const handleButtonClick = () => {
     if (buttonText === 'Leave Tee Time') {
-      deleteUserFromTeeTime(teeTimeDetails.id, usersTeeTime.id)
+      deleteUserFromTeeTime(teeTimeDetails.id, user[0].id)
         .then(() => {
           teeTimes();
         })
@@ -40,7 +55,7 @@ export default function ViewSingleTeeTime() {
           console.error('Error leaving tee time:', error);
         });
     } else if (buttonText === 'Join Tee Time') {
-      addUserToTeeTime(teeTimeDetails.id, usersTeeTime.id)
+      addUserToTeeTime(teeTimeDetails.id, user[0].id)
         .then(() => {
           teeTimes();
         })
@@ -59,10 +74,12 @@ export default function ViewSingleTeeTime() {
           buttonCheck();
         });
     }
-  }, [teeTimeDetails.users, buttonText, user]);
+  }, [teeTimeDetails.numOfPlayers]);
 
   useEffect(() => {
-    getSingleCourse(teeTimeDetails.courseId).then(setCourseName);
+    if (teeTimeDetails.courseId) {
+      getSingleCourse(teeTimeDetails.courseId).then(setCourseName);
+    }
   }, [teeTimeDetails.courseId]);
 
   return (
@@ -75,10 +92,18 @@ export default function ViewSingleTeeTime() {
           <Card.Subtitle className="mb-2">Date: {teeTimeDetails.date}</Card.Subtitle>
           <Card.Subtitle className="mb-2">Time: {teeTimeDetails.time}</Card.Subtitle>
           <Card.Subtitle className="mb-2">Location: {teeTimeDetails.location}</Card.Subtitle>
-          <Card.Subtitle className="mb-2">Number of Players: {teeTimeDetails.numOfPlayers}</Card.Subtitle>
+          {teeTimeDetails.numOfPlayers > 0 ? (
+            <Card.Subtitle className="mb-2">Number of Players Needed: {teeTimeDetails.numOfPlayers}</Card.Subtitle>
+          ) : (
+            <Card.Subtitle className="mb-2">Number of Players Needed: Tee Time Full</Card.Subtitle>
+          )}
         </Card.Body>
         <div>
-          <Button type="button" onClick={handleButtonClick}>{buttonText}</Button>
+          {buttonText !== 'Tee Time Full' && buttonText !== '' && (
+            <Button type="button" onClick={handleButtonClick}>
+              {buttonText}
+            </Button>
+          )}
         </div>
       </Card>
     </div>

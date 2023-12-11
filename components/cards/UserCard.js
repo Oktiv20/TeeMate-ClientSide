@@ -18,6 +18,8 @@ function MemberCard({ userObj }) {
           {`Transportation: ${userObj.transportation}`}
           <br />
           {`Clubs: ${userObj.clubs}`}
+          <br />
+          {`Skill Level: ${userObj.skillLevelId}`}
         </Card.Text>
       </Card.Body>
     </Card>
@@ -33,6 +35,7 @@ MemberCard.propTypes = {
     availability: PropTypes.string,
     transportation: PropTypes.string,
     clubs: PropTypes.string,
+    skillLevelId: PropTypes.string,
     profilePic: PropTypes.string,
     id: PropTypes.number,
     uid: PropTypes.string,

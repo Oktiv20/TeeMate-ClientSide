@@ -14,7 +14,7 @@ export default function TeeTimes() {
   }, []);
 
   return (
-    <div className="d-flex justify-content-between">
+    <div className="d-flex flex-row flex-wrap mt-4">
       {teeTimes?.map((teeTime) => (
         <TeeTimeCard key={teeTime.id} teeObj={teeTime} />))}
     </div>
