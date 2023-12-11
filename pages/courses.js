@@ -16,7 +16,7 @@ export default function Courses() {
   return (
     <div className="d-flex flex-row flex-wrap mt-4">
       {courses?.map((course) => (
-        <CourseCard key={course.id} courseObj={course} />))};
+        <CourseCard key={course.id} courseObj={course} />))}
     </div>
   );
 }

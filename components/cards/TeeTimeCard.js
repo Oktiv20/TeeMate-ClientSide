@@ -5,9 +5,11 @@ import { useRouter } from 'next/router';
 import { getAllUsers } from '../../api/userData';
 import { useAuth } from '../../utils/context/authContext';
 import { getSingleCourse } from '../../api/courseData';
+import { getSingleSkillLevel } from '../../api/skillLevelData';
 
 function TeeTimeCard({ teeObj }) {
   const [bookedByUser, setBookedByUser] = useState(null);
+  const [bookedByUserSkillLevel, setBookedByUserSkillLevel] = useState({});
   const router = useRouter();
   const [courseName, setCourseName] = useState([]);
 
@@ -18,7 +20,7 @@ function TeeTimeCard({ teeObj }) {
       .then((users) => {
         const foundUser = users.find((u) => u.id === teeObj.userId);
         setBookedByUser(foundUser);
-        console.log('Tee card User:', user.id);
+        getSingleSkillLevel(foundUser.skillLevelId).then(setBookedByUserSkillLevel);
       })
       .catch((error) => {
         console.error('Error fetching users:', error);
@@ -35,17 +37,19 @@ function TeeTimeCard({ teeObj }) {
 
   return (
     <div>
-      <Card className="teeTimeCard" style={{ width: '20rem' }}>
+      <Card className="teeTimeCard" style={{ width: '20rem', height: '28rem' }}>
         <Card.Body>
           <Card.Title className="cardTitle">
             Booked By: {`${bookedByUser?.firstName} ${bookedByUser?.lastName}`}
           </Card.Title>
+          <Card.Subtitle className="mb-2">Skill Level: {bookedByUserSkillLevel.level}</Card.Subtitle>
           <Card.Subtitle className="mb-2">Course: {courseName.name} </Card.Subtitle>
+          <Card.Img src={courseName.image} />
           <Card.Subtitle className="mb-2">Date: {teeObj.date}</Card.Subtitle>
-          <Card.Subtitle className="mb-2">Time: {teeObj.time}</Card.Subtitle>
-          <Card.Subtitle className="mb-2">Location: {teeObj.location}</Card.Subtitle>
+          {/* <Card.Subtitle className="mb-2">Time: {teeObj.time}</Card.Subtitle>
+          <Card.Subtitle className="mb-2">Location: {teeObj.location}</Card.Subtitle> */}
           <Card.Subtitle className="mb-2">
-            Number of Players: {teeObj.numOfPlayers}
+            Number of Players Needed: {teeObj.numOfPlayers === 0 ? 'Tee Time Full' : teeObj.numOfPlayers}
           </Card.Subtitle>
         </Card.Body>
         <div className="d-flex flex-column justify-content-end">

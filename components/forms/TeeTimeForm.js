@@ -12,7 +12,7 @@ const initialState = {
   time: '',
   location: '',
   numOfPlayers: 0,
-  courseId: 1,
+  courseId: '',
 };
 
 function TeeTimeForm({ teeObj }) {
@@ -50,7 +50,7 @@ function TeeTimeForm({ teeObj }) {
       updateTeeTime(formInput).then(() => router.push('/'));
     } else {
       const payload = { ...formInput, userId: user[0].id };
-      createTeeTime(payload).then(() => router.push('/'));
+      createTeeTime(payload, user[0].id).then(() => router.push('/'));
     }
   };
 
@@ -68,23 +68,50 @@ function TeeTimeForm({ teeObj }) {
               onChange={handleChange}
             />
           </Form.Group>
+
           <Form.Group className="mb-3">
             <Form.Label>Choose Time:</Form.Label>
             <Form.Control
               type="text"
               name="time"
+              placeholder="HH:mm am/pm"
               value={formInput.time}
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3">
+
+          <Form.Group className="mb-3" controlId="formBasicLocation">
             <Form.Label>Location</Form.Label>
-            <Form.Control type="text" name="location" value={formInput.location} onChange={handleChange} required />
+            <Form.Select
+              name="location"
+              value={formInput.location}
+              onChange={handleChange}
+              required
+            >
+              <option value="">
+                Select a city
+              </option>
+              <option value="Nashville, TN">Nashville, TN</option>
+            </Form.Select>
           </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Number of players</Form.Label>
-            <Form.Control type="text" name="numOfPlayers" value={formInput.numOfPlayers} onChange={handleChange} required />
+
+          <Form.Group className="mb-3" controlId="formBasicNumOfPlayers">
+            <Form.Label>Number of Players Needed</Form.Label>
+            <Form.Select
+              name="numOfPlayers"
+              value={formInput.numOfPlayers}
+              onChange={handleChange}
+              required
+            >
+              <option value="">
+                Select a number
+              </option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </Form.Select>
           </Form.Group>
+
           <Form.Group>
             <Form.Label>Course</Form.Label>
             <Form.Select
@@ -95,7 +122,9 @@ function TeeTimeForm({ teeObj }) {
               value={formInput.courseId}
               required
             >
-              <option value="">Select a Course</option>
+              <option value="">
+                Select a Course
+              </option>
               {
             courses.map((course) => (
               <option
@@ -124,7 +153,7 @@ TeeTimeForm.propTypes = {
     location: PropTypes.string,
     numOfPlayers: PropTypes.number,
     userId: PropTypes.number,
-    courseId: PropTypes.number,
+    courseId: PropTypes.string,
   }),
 };
 

@@ -21,9 +21,9 @@ function UserTeeCard({ teeObj, onUpdate }) {
     getSingleCourse(teeObj.courseId).then(setCourseName);
   }, [teeObj.courseId]);
 
-  const handleDetailsClick = () => {
-    router.push(`/teeTime/${teeObj.id}`);
-  };
+  // const handleDetailsClick = () => {
+  //   router.push(`/teeTime/${teeObj.id}`);
+  // };
 
   const handleEditClick = () => {
     router.push(`/teeTime/edit/${teeObj.id}`);
@@ -31,20 +31,21 @@ function UserTeeCard({ teeObj, onUpdate }) {
 
   return (
     <div className="align-content-center">
-      <Card className="teeTimeCard" style={{ width: '25rem' }}>
+      <Card className="teeTimeCard" style={{ width: '25rem', height: '30rem' }}>
         <Card.Body>
           <Card.Title className="mb-2">Course: {courseName.name} </Card.Title>
+          <Card.Img src={courseName.image} style={{ height: '15rem' }} />
           <Card.Subtitle className="mb-2">Date: {teeObj.date}</Card.Subtitle>
           <Card.Subtitle className="mb-2">Time: {teeObj.time}</Card.Subtitle>
           <Card.Subtitle className="mb-2">Location: {teeObj.location}</Card.Subtitle>
           <Card.Subtitle className="mb-2">
-            Number of Players: {teeObj.numOfPlayers}
+            Number of Players Needed: {teeObj.numOfPlayers}
           </Card.Subtitle>
         </Card.Body>
         <div className="cardBtns">
-          <Button className="tee tee-details-btn" onClick={handleDetailsClick}>
+          {/* <Button className="tee tee-details-btn" onClick={handleDetailsClick}>
             Details
-          </Button>
+          </Button> */}
           <Button className="tee edit-tee-btn" onClick={handleEditClick}>
             Edit
           </Button>
@@ -66,6 +67,7 @@ UserTeeCard.propTypes = {
   }),
   courseObj: PropTypes.shape({
     name: PropTypes.string,
+    image: PropTypes.string,
   }),
   onUpdate: PropTypes.func.isRequired,
 }.isRequired;
