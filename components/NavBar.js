@@ -29,20 +29,20 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Home</Nav.Link>
             </Link>
-            <Link passHref href="/teeTimes">
-              <Nav.Link>All Tee Times</Nav.Link>
-            </Link>
             <Link passHref href="/joinedTeeTimes">
               <Nav.Link>Joined Tee Times</Nav.Link>
+            </Link>
+            <Link passHref href="/teeTimes">
+              <Nav.Link>All Tee Times</Nav.Link>
             </Link>
             <Link passHref href="/teeTime/new">
               <Nav.Link>Create Tee Time</Nav.Link>
             </Link>
-            <Link passHref href="/courses">
-              <Nav.Link>Courses</Nav.Link>
-            </Link>
             <Link passHref href="/players">
               <Nav.Link>Players</Nav.Link>
+            </Link>
+            <Link passHref href="/courses">
+              <Nav.Link>Courses</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>
               Sign Out

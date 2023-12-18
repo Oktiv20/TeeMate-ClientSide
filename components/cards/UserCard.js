@@ -1,8 +1,25 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
+import { getSingleSkillLevel } from '../../api/skillLevelData';
 
 function MemberCard({ userObj }) {
+  const router = useRouter();
+  const [skillLevel, setSkillLevel] = useState({});
+
+  useEffect(() => {
+    getSingleSkillLevel(userObj.skillLevelId).then(setSkillLevel);
+  }, [userObj.skillLevelId]);
+
+  const handleTeeTimes = () => {
+    console.log('userObj:', userObj);
+    router.push({
+      pathname: `/userTeeTime/${userObj.id}`,
+      query: { userId: userObj.id },
+    });
+  };
+
   return (
     <Card className="memCard" style={{ width: '18rem' }}>
       <Card.Img variant="top" style={{ maxWidth: '100%' }} src={userObj.profilePic} alt={`${userObj.firstName} ${userObj.lastName}`} />
@@ -19,9 +36,10 @@ function MemberCard({ userObj }) {
           <br />
           {`Clubs: ${userObj.clubs}`}
           <br />
-          {`Skill Level: ${userObj.skillLevelId}`}
+          {`Skill Level: ${skillLevel.level}`}
         </Card.Text>
       </Card.Body>
+      <Button className="tee tee-details-btn" onClick={handleTeeTimes}>View Tee Times</Button>
     </Card>
   );
 }
@@ -30,16 +48,16 @@ MemberCard.propTypes = {
   userObj: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
-    age: PropTypes.string,
+    age: PropTypes.number,
     handicap: PropTypes.string,
     availability: PropTypes.string,
     transportation: PropTypes.string,
     clubs: PropTypes.string,
-    skillLevelId: PropTypes.string,
+    skillLevelId: PropTypes.number,
     profilePic: PropTypes.string,
     id: PropTypes.number,
     uid: PropTypes.string,
-    teeTimes: PropTypes.arrayOf(PropTypes.string),
+    teeTimes: PropTypes.arrayOf(PropTypes.shape),
   }).isRequired,
 };
 

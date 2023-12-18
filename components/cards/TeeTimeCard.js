@@ -40,9 +40,9 @@ function TeeTimeCard({ teeObj }) {
       <Card className="teeTimeCard" style={{ width: '20rem', height: '28rem' }}>
         <Card.Body>
           <Card.Title className="cardTitle">
-            Booked By: {`${bookedByUser?.firstName} ${bookedByUser?.lastName}`}
+            {`${bookedByUser?.firstName} ${bookedByUser?.lastName}`}
           </Card.Title>
-          <Card.Subtitle className="mb-2">Skill Level: {bookedByUserSkillLevel.level}</Card.Subtitle>
+          <Card.Subtitle className="mb-2">{`${bookedByUser?.firstName}`}&apos;s Skill Level: {bookedByUserSkillLevel.level}</Card.Subtitle>
           <Card.Subtitle className="mb-2">Course: {courseName.name} </Card.Subtitle>
           <Card.Img src={courseName.image} />
           <Card.Subtitle className="mb-2">Date: {teeObj.date}</Card.Subtitle>
@@ -71,6 +71,7 @@ TeeTimeCard.propTypes = {
     location: PropTypes.string,
     numOfPlayers: PropTypes.string,
     id: PropTypes.number,
+    skillLevel: PropTypes.string,
     userId: PropTypes.number,
   }),
   onUpdate: PropTypes.func.isRequired,
