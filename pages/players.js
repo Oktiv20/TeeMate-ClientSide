@@ -18,7 +18,6 @@ export default function Players() {
 
   const viewPlayers = () => {
     getAllUsers().then((users) => {
-      console.log('Retrieved Users:', users);
       setPlayers(users);
     });
   };
@@ -35,7 +34,6 @@ export default function Players() {
   const handleSkillChange = (e) => {
     const selectedOption = e.target.value;
     setSelectedSkill(selectedOption);
-    console.log('SelectedOption:', selectedOption);
   };
 
   const filteredPlayers = selectedSkill

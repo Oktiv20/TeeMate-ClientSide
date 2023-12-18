@@ -14,13 +14,12 @@ export default function UserTeeTime() {
       getAllTeeTimes().then((allTeeTimes) => {
         const filteredTeeTimes = allTeeTimes.filter((teeTime) => teeTime.userId === userIdNumber);
         setUsersTeeTime(filteredTeeTimes);
-        console.log('Filtered Tee Times:', filteredTeeTimes);
       });
     }
   }, [userId]);
 
   return (
-    <div>
+    <div className="d-flex flex-row flex-wrap mt-4">
       {usersTeeTimes.map((teeTime) => (
         <TeeTimeCard key={teeTime.id} teeObj={teeTime} />
       ))}

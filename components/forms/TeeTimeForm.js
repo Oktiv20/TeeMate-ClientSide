@@ -46,7 +46,6 @@ function TeeTimeForm({ teeObj }) {
     e.preventDefault();
 
     if (teeObj?.id) {
-      console.log('teeObjId:', teeObj.id);
       updateTeeTime(formInput).then(() => router.push('/'));
     } else {
       const payload = { ...formInput, userId: user[0].id };

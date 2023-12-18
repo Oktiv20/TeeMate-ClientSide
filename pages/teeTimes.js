@@ -5,7 +5,7 @@ import { getAllUsers } from '../api/userData';
 
 export default function TeeTimes() {
   const [teeTimes, setTeeTime] = useState([]);
-  const [players, setPlayers] = useState([]);
+  const [, setPlayers] = useState([]);
 
   const viewTeeTimes = () => {
     getAllTeeTimes().then(setTeeTime);
@@ -19,8 +19,6 @@ export default function TeeTimes() {
     viewTeeTimes();
     getPlayers();
   }, []);
-
-  console.log('Players:', players);
 
   return (
     <div className="d-flex flex-row flex-wrap mt-4">

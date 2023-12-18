@@ -13,7 +13,6 @@ function MemberCard({ userObj }) {
   }, [userObj.skillLevelId]);
 
   const handleTeeTimes = () => {
-    console.log('userObj:', userObj);
     router.push({
       pathname: `/userTeeTime/${userObj.id}`,
       query: { userId: userObj.id },
