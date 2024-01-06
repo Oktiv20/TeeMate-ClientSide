@@ -36,31 +36,43 @@ function TeeTimeCard({ teeObj }) {
   };
 
   return (
-    <div>
-      <Card className="teeTimeCard" style={{ width: '20rem', height: '28rem' }}>
-        <Card.Body>
-          <Card.Title className="cardTitle">
-            Booked By: {`${bookedByUser?.firstName} ${bookedByUser?.lastName}`}
-          </Card.Title>
-          <Card.Subtitle className="mb-2">Skill Level: {bookedByUserSkillLevel.level}</Card.Subtitle>
-          <Card.Subtitle className="mb-2">Course: {courseName.name} </Card.Subtitle>
-          <Card.Img src={courseName.image} />
-          <Card.Subtitle className="mb-2">Date: {teeObj.date}</Card.Subtitle>
-          {/* <Card.Subtitle className="mb-2">Time: {teeObj.time}</Card.Subtitle>
-          <Card.Subtitle className="mb-2">Location: {teeObj.location}</Card.Subtitle> */}
-          <Card.Subtitle className="mb-2">
-            Number of Players Needed: {teeObj.numOfPlayers === 0 ? 'Tee Time Full' : teeObj.numOfPlayers}
-          </Card.Subtitle>
-        </Card.Body>
-        <div className="d-flex flex-column justify-content-end">
-          <div className="d-flex justify-content-center">
-            <Button className="tee tee-details-btn" onClick={handleDetailsClick}>
-              Details
-            </Button>
-          </div>
+    <Card
+      className="playerTeeTimeCard"
+      style={{
+        width: '18rem',
+        height: '28rem',
+        margin: '20px',
+        alignItems: 'center',
+        background: 'linear-gradient(#f8f8f8, #fff)',
+        boxShadow: '0 2px 10px rgba(1, 1, 1, 1)',
+        borderRadius: '6px',
+      }}
+    >
+      <Card.Img src={courseName.image} style={{ height: '200px', width: '18rem' }} />
+      <Card.Body>
+        <Card.Title
+          className="cardTitle"
+          style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}
+        >
+          {`${bookedByUser?.firstName} ${bookedByUser?.lastName}`}
+        </Card.Title>
+        <Card.Subtitle className="userInfo">Skill Level: {bookedByUserSkillLevel.level}</Card.Subtitle>
+        <Card.Subtitle className="userInfo">Course: {courseName.name} </Card.Subtitle>
+        <Card.Subtitle className="userInfo">Date: {teeObj.date}</Card.Subtitle>
+        <Card.Subtitle className="userInfo">
+          Players Needed: {teeObj.numOfPlayers === 0 ? 'Tee Time Full' : teeObj.numOfPlayers}
+        </Card.Subtitle>
+      </Card.Body>
+      <div className="d-flex flex-column justify-content-end mt-4">
+        <div className="d-flex justify-content-center">
+          <Button className="teeTimesBtnTeeCard" onClick={handleDetailsClick}>
+            Details
+          </Button>
         </div>
-      </Card>
-    </div>
+      </div>
+    </Card>
   );
 }
 
@@ -71,6 +83,7 @@ TeeTimeCard.propTypes = {
     location: PropTypes.string,
     numOfPlayers: PropTypes.string,
     id: PropTypes.number,
+    skillLevel: PropTypes.string,
     userId: PropTypes.number,
   }),
   onUpdate: PropTypes.func.isRequired,

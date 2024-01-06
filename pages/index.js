@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Image } from 'react-bootstrap';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { checkUser, signOut } from '../utils/auth';
+import { checkUser } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 import { getUserTeeTimes } from '../api/userData';
 import RegisterForm from '../components/forms/RegisterForm';
@@ -37,52 +37,97 @@ function Home() {
 
   return (
     <>
-      {currentUser?.uid !== user?.uid ? (<RegisterForm onUpdate={onUpdate} />) : (
+      {currentUser?.uid !== user?.uid ? (
+        <RegisterForm onUpdate={onUpdate} />
+      ) : (
         <>
-          <Card className="prof" style={{ width: '25rem' }}>
-            <Card.Body className="d-flex flex-column justify-content-center align-items-center">
-              <div>
-                <img
-                  src={currentUser.profilePic}
-                  alt={[currentUser?.firstName, currentUser?.lastName]}
-                  style={{ width: '20rem' }}
-                />
-              </div>
-              <div className="profileRight">
-                <div className="profileInfo profile">
-                  <h3>
+          <div style={{
+            width: '100', margin: '0', padding: '0',
+          }}
+          >
+            <Image
+              src="/Images/grassSky.jpg"
+              alt=""
+              style={{ width: '100%', maxHeight: '325px', objectFit: 'cover' }}
+            />
+          </div>
+          <div style={{
+            position: 'absolute', top: '20%', left: '50%', transform: 'translate(-50%, -50%)',
+          }}
+          >
+            <h1 style={{ color: 'black', textAlign: 'center' }}> MY PROFILE </h1>
+          </div>
+          <div className="profileSection">
+            <Card className="prof">
+              <Card.Body>
+                <div className="left-content d-flex flex-column align-items-center">
+                  <img
+                    src={currentUser.profilePic}
+                    alt={[currentUser?.firstName, currentUser?.lastName]}
+                    style={{
+                      width: '9.5rem',
+                      height: '9rem',
+                      borderRadius: '100%',
+                    }}
+                  />
+                  <h3 className="name" style={{ textAlign: 'center', paddingTop: '10px', paddingBottom: '8px' }}>
                     {currentUser?.firstName} {currentUser?.lastName}
                   </h3>
-                  <p>Age: {currentUser?.age}</p>
-                  <p>Handicap: {currentUser?.handicap}</p>
-                  <p>Availability: {currentUser?.availability}</p>
-                  <p>Preferred Transportation: {currentUser?.transportation}</p>
-                  <p>Preferred Clubs: {currentUser?.clubs}</p>
-                  <p>Skill Level: {skillLevel.level}</p>
                 </div>
-                <div className="homeButtons profile">
+                <div
+                  className="right-content"
+                  style={{
+                    backgroundColor: 'lightgray',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexWrap: 'wrap',
+                    height: '30%',
+                    alignItems: 'flex-start',
+                    border: 'black',
+                    borderStyle: 'solid',
+                    borderWidth: '2px',
+                  }}
+                >
+                  <Card.Text className="info-item"><strong>Age: </strong>{currentUser?.age}</Card.Text>
+                  <Card.Text className="info-item"><strong>Handicap: </strong>{currentUser?.handicap}</Card.Text>
+                  <Card.Text className="info-item"><strong>Availability: </strong>{currentUser?.availability}</Card.Text>
+                  <Card.Text className="info-item"><strong>Preferred Transportation: </strong>{currentUser?.transportation}</Card.Text>
+                  <Card.Text className="info-item"><strong>Preferred Clubs: </strong>{currentUser?.clubs}</Card.Text>
+                  <Card.Text className="info-item"><strong>Skill Level: </strong>{skillLevel.level}</Card.Text>
+                </div>
+                <div
+                  className="homeButtons"
+                  style={{
+                    display: 'flex',
+                    flexFlow: 'row wrap',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    marginTop: '25px',
+                  }}
+                >
                   <Link href={`/user/${currentUser.id}`} passHref>
-                    <Button className="homeUpdate" variant="info">
+                    <Button className="homeUpdate">
                       Update Profile
                     </Button>
                   </Link>
-                  <Button
-                    variant="danger"
-                    type="button"
-                    size="md"
-                    className="copy-btn homeSO"
-                    onClick={signOut}
-                  >
-                    Sign Out
-                  </Button>
                 </div>
-              </div>
-            </Card.Body>
-          </Card>
-          <h1>MY TEE TIMES</h1>
-          <div className="d-flex flex-row flex-wrap mt-4">
+              </Card.Body>
+            </Card>
+          </div>
+          <div className="h1-container">
+            <h1 className="teeTimeHeader">MY TEE TIMES</h1>
+          </div>
+          <div className="d-flex flex-row flex-wrap justify-content-center mt-4">
             {teeTimes.length ? teeTimes.map((teeTime) => (
-              <UserTeeCard key={teeTime.id} teeObj={teeTime} onUpdate={userTeeTimes} />)) : ('')}
+              <UserTeeCard key={teeTime.id} teeObj={teeTime} onUpdate={userTeeTimes} />
+            )) : ('')}
+          </div>
+          <div
+            className="footer"
+          >
+            <p>About Us</p>
+            <p>Contact Us</p>
+            {/* Add more filler information as needed */}
           </div>
         </>
       )}

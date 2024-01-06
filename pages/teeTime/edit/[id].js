@@ -12,8 +12,6 @@ export default function EditTeeTime() {
     getSingleTeeTime(id).then(setEditTee);
   }, [id]);
 
-  console.log('editTee:', editTee);
-
   return (
     <TeeTimeForm teeObj={editTee} />
   );

@@ -2,10 +2,16 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+ padding: 0;
+ margin: 0;
+ font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+ background-color: rgb(255, 255, 255);
+ /* background-image: url('/Images/grassSky.jpg');
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ min-height: 100vh; */
 }
 
 a {
@@ -13,10 +19,342 @@ a {
   text-decoration: none;
 }
 
+
 * {
   box-sizing: border-box;
 }
 
-body {
-  background-color: green;
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+.playersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.teeTimesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.highlighted-tee-time {
+  border: 2px solid red;
+  box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.prof {
+  width: 40rem;
+  height: 30rem;
+  background-color: #fff;
+  background: linear-gradient(#f8f8f8, #fff);
+  box-shadow: 0 2px 10px rgba(1, 1, 1, 1);
+  border-radius: 6px;
+  margin: 2rem auto;
+}
+
+.profileSection {
+  width: 100%;
+}
+
+.homeUpdate {
+  background: linear-gradient(0deg, rgb(13, 121, 1) 0%, rgba(17, 160, 1) 100%);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(1, 1, 1, 1);
+}
+
+.homeUpdate:before {
+  height: 0%;
+  width: 2px;
+}
+
+.homeUpdate:hover {
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+.teeTimesBtn {
+  background: linear-gradient(0deg, rgb(13, 121, 1) 0%, rgba(17, 160, 1) 100%);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(1, 1, 1, 1);
+}
+
+.teeTimesBtn:before {
+  height: 0%;
+  width: 2px;
+}
+
+.teeTimesBtn:hover {
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+.teeTimesBtnTeeCard {
+  background: linear-gradient(0deg, rgb(13, 121, 1) 0%, rgba(17, 160, 1) 100%);
+  border: none;
+  position: relative;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(1, 1, 1, 1);
+}
+
+.teeTimesBtnTeeCard:before {
+  height: 0%;
+  width: 2px;
+}
+
+.teeTimesBtnTeeCard:hover {
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+.signOut {
+  background: rgb(193, 0, 0);
+  background: linear-gradient(0deg, rgb(193, 0, 0) 0%, rgba(193, 0, 0) 100%);
+  border: none;
+  
+}
+
+.signOut:before {
+  height: 0%;
+  width: 2px;
+}
+
+.signOut:hover {
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+.navLinkButton {
+  background: linear-gradient(0deg, rgb(13, 121, 1) 0%, rgba(17, 160, 1) 100%);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(1, 1, 1, 1);
+}
+
+.navLinkButton:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navLinkButton:hover {
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, 0.5),
+              inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+              inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
+}
+
+.navLinkButton:hover:before {
+  opacity: 1;
+}
+
+.navLinkButton {
+  margin: 15px;
+}
+
+.signOutButton {
+  background: linear-gradient(0deg, rgba(193, 0, 0) 0%, rgba(193, 0, 0) 100%);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(1, 1, 1, 1);
+  border-radius: 20px;
+}
+
+.signOutButton:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.signOutButton:hover {
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, 0.5),
+              inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+              inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
+}
+
+.signOutButton:hover:before {
+  opacity: 1;
+}
+
+.signOutButton {
+  margin: 15px;
+}
+
+.info-item {
+  font-size: 20px;
+  margin: 13px 0;
+  margin-left: 55px;
+}
+
+.h1-container {
+  margin: 0;
+  left: 0;
+  right: 0;
+}
+
+.teeTimeHeader {
+  font-size: 2.5rem;
+  font-family: 'Montserrat';
+  font-weight: normal;
+  color: black;
+  text-align: center;
+  margin: 0;
+  background-color: rgba(13, 121, 1);
+}
+
+.teeTimeCard {
+  width: 250px;
+  height: auto;
+  margin: 20px;
+  background: transparent;
+  border: none;
+  box-shadow: 0 4px 8px 0 white(0, 0, 0, 0.25);
+  perspective: 2000px;
+}
+
+.teeTimeCard:hover .front {
+  transform: rotateY(180deg);
+}
+
+.teeTimeCard:hover .back {
+  transform: rotateY(0deg);
+}
+
+.front,
+.back {
+ border-radius: 4px;
+ background-position: center;
+ transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+ backface-visibility: hidden;
+ text-align: center;
+ /* border-radius: 8px; */
+ color: white;
+ font-size: 1.5rem;
+ font-weight: bolder;
+ position: relative;
+ width: 100%;
+ height: 229.5px;
+ box-shadow: 0px 0px 12px 9px rgb(255, 255, 255);
+ z-index: 1;
+}
+
+.back {
+  background: -webkit-linear-gradient(45deg, rgb(13, 121, 1) 40%, rgb(0, 162, 3)60%);
+  background: -o-linear-gradient(45deg, rgb(13, 121, 1) 40%, rgb(0, 162, 3) 60%);
+  background: linear-gradient(45deg, rgb(13, 121, 1) 40%, rgb(0, 162, 3) 60%);
+  transform: rotateY(180deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 229.5px;
+  color: black;
+  padding-bottom: 10%;
+}
+
+.back .card .subtitle {
+  font-size: large;
+}
+
+.inner {
+  transform: translateY(-50%) translateZ(60px) scale(0.94);
+  top: 50%;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+}
+
+.cardBtns .btn {
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: lighter;
+  transition: 0.3s;
+ }
+ 
+ .cardBtns .btn:hover {
+  color: white;
+ }
+
+.userInfo {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.footer {
+  background-color: #424242;
+  color: white;
+  height: 100px;
+  margin-top: 40px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: black; /* Set the arrow color */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 4%; /* Set the width of the arrow container */
+}
+
+.carousel-control-prev {
+  left: -12%; /* Adjust the position of the left arrow */
+}
+
+.carousel-control-next {
+  right: -5%; /* Adjust the position of the right arrow */
+}
+
+.carousel-control-prev-icon:before {
+  content: '\f137'; /* Use the Font Awesome solid caret-left icon */
+  font-family: 'FontAwesomeSolid'; /* Set the Font Awesome solid font family */
+}
+
+.carousel-control-next-icon:before {
+  content: '\f138'; /* Use the Font Awesome solid caret-right icon */
+  font-family: 'FontAwesomeSolid'; /* Set the Font Awesome solid font family */
 }
