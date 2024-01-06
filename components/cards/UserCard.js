@@ -20,11 +20,22 @@ function MemberCard({ userObj }) {
   };
 
   return (
-    <Card className="memCard" style={{ width: '18rem' }}>
-      <Card.Img variant="top" style={{ maxWidth: '100%' }} src={userObj.profilePic} alt={`${userObj.firstName} ${userObj.lastName}`} />
+    <Card
+      className="memCard"
+      style={{
+        width: '18rem',
+        height: '29rem',
+        margin: '20px',
+        alignItems: 'center',
+        background: 'linear-gradient(#f8f8f8, #fff)',
+        boxShadow: '0 2px 10px rgba(1, 1, 1, 1)',
+        borderRadius: '6px',
+      }}
+    >
+      <Card.Img variant="top" src={userObj.profilePic} alt={`${userObj.firstName} ${userObj.lastName}`} style={{ height: '12rem' }} />
       <Card.Body>
         <Card.Title className="memTitle">{`${userObj.firstName} ${userObj.lastName}`}</Card.Title>
-        <Card.Text>
+        <Card.Text style={{ marginBottom: '25px' }}>
           {`Age: ${userObj.age}`}
           <br />
           {`Handicap: ${userObj.handicap}`}
@@ -37,8 +48,8 @@ function MemberCard({ userObj }) {
           <br />
           {`Skill Level: ${skillLevel.level}`}
         </Card.Text>
+        <Button className="teeTimesBtn" onClick={handleTeeTimes}>View Tee Times</Button>
       </Card.Body>
-      <Button className="tee tee-details-btn" onClick={handleTeeTimes}>View Tee Times</Button>
     </Card>
   );
 }

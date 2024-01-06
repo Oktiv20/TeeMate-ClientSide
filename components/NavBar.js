@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  Navbar, //
+  Navbar,
   Container,
   Nav,
   Button,
@@ -12,41 +12,54 @@ import { signOut } from '../utils/auth';
 
 export default function NavBar() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Nav.Link passhref="true" href="/">
+    <Navbar collapseOnSelect expand="lg" className="navBarCustom">
+      <Container fluid>
+        <Navbar.Brand href="/">
           <Image
             src="../Images/TeeMate Final.png"
             width="105px"
             height="55rem"
             className="d-inline-block align-top"
           />
-        </Nav.Link>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            {/* CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working */}
-            <Link passHref href="/">
-              <Nav.Link>Home</Nav.Link>
-            </Link>
-            <Link passHref href="/joinedTeeTimes">
-              <Nav.Link>Joined Tee Times</Nav.Link>
-            </Link>
-            <Link passHref href="/teeTimes">
-              <Nav.Link>All Tee Times</Nav.Link>
-            </Link>
-            <Link passHref href="/teeTime/new">
-              <Nav.Link>Create Tee Time</Nav.Link>
-            </Link>
-            <Link passHref href="/players">
-              <Nav.Link>Players</Nav.Link>
-            </Link>
-            <Link passHref href="/courses">
-              <Nav.Link>Courses</Nav.Link>
-            </Link>
-            <Button variant="danger" onClick={signOut}>
-              Sign Out
-            </Button>
+          <Nav className="ms-auto me-auto"> {/* Use ms-auto and me-auto for centering */}
+            <div
+              className="pagesNav"
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                fontWeight: 'bold',
+              }}
+            >
+              <Link passHref href="/">
+                <Button className="navLinkButton">Home</Button>
+              </Link>
+              <Link passHref href="/joinedTeeTimes">
+                <Button className="navLinkButton">Joined Tee Times</Button>
+              </Link>
+              <Link passHref href="/teeTimes">
+                <Button className="navLinkButton">All Tee Times</Button>
+              </Link>
+              <Link passHref href="/teeTime/new">
+                <Button className="navLinkButton">Create Tee Time</Button>
+              </Link>
+              <Link passHref href="/players">
+                <Button className="navLinkButton">Players</Button>
+              </Link>
+              <Link passHref href="/courses">
+                <Button className="navLinkButton">Courses</Button>
+              </Link>
+            </div>
+          </Nav>
+          <Nav>
+            <div className="signOutButton">
+              <Button variant="danger" onClick={signOut}>
+                Sign Out
+              </Button>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>

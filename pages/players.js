@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Image } from 'react-bootstrap';
 import { getAllUsers } from '../api/userData';
 import MemberCard from '../components/cards/UserCard';
 import { getAllSkillLevels } from '../api/skillLevelData';
@@ -42,26 +42,50 @@ export default function Players() {
 
   return (
     <>
-      <Form>
-        <Form.Select
-          value={selectedSkill}
-          onChange={handleSkillChange}
-          style={{ color: 'black' }}
-          placeholder="Filter Players"
-          label="Filter Players"
+      <div style={{
+        margin: '0', padding: '0',
+      }}
+      >
+        <Image
+          src="/Images/grassSky.jpg"
+          alt=""
+          style={{ width: '100%', maxHeight: '325px', objectFit: 'cover' }}
+        />
+        <div style={{
+          position: 'absolute', top: '20%', left: '50%', transform: 'translate(-50%, -50%)',
+        }}
         >
-          <option value="">All</option>
-          {playersSkill.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </Form.Select>
-      </Form>
-      <div className="d-flex flex-row flex-wrap mt-4">
+          <h1 style={{ color: 'black', textAlign: 'center' }}>FILTER PLAYERS</h1>
+          <Form style={{
+            maxWidth: '300px', margin: '0 auto', color: 'black',
+          }}
+          >
+            <Form.Select
+              value={selectedSkill}
+              onChange={handleSkillChange}
+              placeholder="Skill Level"
+              label="Skill Level"
+            >
+              <option value="">All Skill Levels</option>
+              {playersSkill.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </Form.Select>
+          </Form>
+        </div>
+      </div>
+      <div className="playersContainer mt-4">
         {filteredPlayers.length > 0
           ? filteredPlayers.map((player) => <MemberCard key={player.id} userObj={player} />)
           : players.map((player) => <MemberCard key={player.id} userObj={player} />)}
+      </div>
+      <div
+        className="footer"
+      >
+        <p>About Us</p>
+        <p>Contact Us</p>
       </div>
     </>
   );

@@ -84,7 +84,7 @@ export default function ViewSingleTeeTime() {
 
   return (
     <div className="singleTee">
-      <Card className="teeTimeCard" style={{ width: '20rem' }}>
+      <Card className="detailsCard" style={{ width: '20rem' }}>
         <Card.Body>
           <Card.Title className="mb-2">Course: {courseName.name} </Card.Title>
           <Card.Img src={courseName.image} />

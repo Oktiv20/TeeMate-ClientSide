@@ -30,29 +30,42 @@ function UserTeeCard({ teeObj, onUpdate }) {
   };
 
   return (
-    <div className="align-content-center">
-      <Card className="teeTimeCard" style={{ width: '25rem', height: '30rem' }}>
-        <Card.Body>
-          <Card.Title className="mb-2">Course: {courseName.name} </Card.Title>
-          <Card.Img src={courseName.image} style={{ height: '15rem' }} />
-          <Card.Subtitle className="mb-2">Date: {teeObj.date}</Card.Subtitle>
-          <Card.Subtitle className="mb-2">Time: {teeObj.time}</Card.Subtitle>
-          <Card.Subtitle className="mb-2">Location: {teeObj.location}</Card.Subtitle>
-          <Card.Subtitle className="mb-2">
-            Number of Players Needed: {teeObj.numOfPlayers}
-          </Card.Subtitle>
-        </Card.Body>
-        <div className="cardBtns">
-          {/* <Button className="tee tee-details-btn" onClick={handleDetailsClick}>
-            Details
-          </Button> */}
-          <Button className="tee edit-tee-btn" onClick={handleEditClick}>
-            Edit
-          </Button>
-          <Button className="tee tee-details-btn" onClick={deleteThisTeeTime}>Delete</Button>
+    <div className="teeTimeCard-wrapper">
+      <Card
+        className="teeTimeCard"
+        onMouseEnter={(e) => e.currentTarget.classList.add('hover')}
+        onMouseLeave={(e) => e.currentTarget.classList.remove('hover')}
+      >
+        <div className="card-inner">
+          <div className="front">
+            <Card.Img src={courseName.image} alt={courseName.name} style={{ height: '229.5px', width: '248.5px' }} />
+            <div className="inner">
+              <Card.Title>{courseName.name}</Card.Title>
+            </div>
+          </div>
+          <div className="back">
+            <Card.Body>
+              {/* <Card.Img src={courseName.image} style={{ height: '140px' }} /> */}
+              <Card.Subtitle>{courseName.name}</Card.Subtitle>
+              <hr />
+              <Card.Subtitle className="mb-2">Date: {teeObj.date}</Card.Subtitle>
+              <Card.Subtitle className="mb-2">Time: {teeObj.time}</Card.Subtitle>
+              <Card.Subtitle className="mb-2">Location: {teeObj.location}</Card.Subtitle>
+              <Card.Subtitle className="mb-2">Number of Players Needed: {teeObj.numOfPlayers}</Card.Subtitle>
+              <div className="cardBtns">
+                <Button className="tee edit-tee-btn" onClick={handleEditClick}>
+                  Edit
+                </Button>
+                <Button className="tee tee-details-btn" onClick={deleteThisTeeTime}>
+                  Delete
+                </Button>
+              </div>
+            </Card.Body>
+          </div>
         </div>
       </Card>
     </div>
+
   );
 }
 
